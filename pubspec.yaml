@@ -10,13 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.2
+  flutter_animation_progress_bar: ^2.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
 
 flutter:
@@ -24,4 +23,3 @@ flutter:
   assets:
     - assets/logo_inatel.png
     - assets/logo_tempmetter.png
-
