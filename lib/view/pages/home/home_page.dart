@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tcc_app/view/components/outline_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,168 +9,100 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool showTopImage = true;
-  bool showBottomImage = true;
-  double progress = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration(seconds: 3), () {
-      setState(() {
-        showTopImage = false;
-        showBottomImage = false;
-        progress = 100;
-      });
-    });
-    Future.delayed(Duration(seconds: 4), () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SecondPage()),
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: <Widget>[
-          if (showTopImage)
-            Padding(
-              padding: EdgeInsets.only(top: 250, left: 35),
-              child: Image.asset('assets/logo_inatel.png'),
-            ),
-          Spacer(),
-          if (showBottomImage)
-            Padding(
-              padding: EdgeInsets.only(bottom: 250, left: 60),
-              child: Image.asset('assets/logo_tempmetter.png'),
-            ),
-          if (progress == 100)
-            Container(
-              height: MediaQuery.of(context).size.height,
-              child: Stack(
+      body: FutureBuilder(
+          future: Future.delayed(const Duration(seconds: 3)),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Positioned(
-                    top: 300,
-                    left: 60,
-                    child: Image.asset('assets/logo_tempmetter.png'),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 250),
+                    child: Image.asset('assets/logo_inatel.png'),
                   ),
-                  Positioned(
-                    bottom: 100,
-                    left: 180,
-                    child: const CircularProgressIndicator(),
+                  Center(
+                    child: Image.asset(
+                      'assets/logo_tempmetter.png',
+                    ),
                   ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  // const CircularProgressIndicator(),
                 ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-class SecondPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.only(top: 40),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 30),
-              child: Image.asset('assets/logo_tempmetter.png'), // Substitua pelo caminho da sua imagem
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Container(
-                      width: 100, // Ajuste para o tamanho desejado
-                      height: 100, // Ajuste para o tamanho desejado
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.blue, // Cor da borda
-                          width: 2, // Espessura da borda
+              );
+            } else {
+              return FutureBuilder(
+                  future: Future.delayed(const Duration(seconds: 3)),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Center(
+                            child: Image.asset(
+                              'assets/logo_tempmetter.png',
+                            ),
+                          ),
+                          const CircularProgressIndicator(),
+                        ],
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 200),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Image.asset(
+                                'assets/logo_tempmetter.png',
+                              ),
+                            ),
+                            const SizedBox(height: 28),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 22),
+                              child: Row(
+                                children: [
+                                  CustomOutlinedButton(
+                                    label: const Text(
+                                      'Adicionar\nSensor',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    child:
+                                        Image.asset('assets/sensor_icon.png'),
+                                  ),
+                                  const SizedBox(width: 25),
+                                  CustomOutlinedButton(
+                                    label: const Text(
+                                      'Remover\nSensor',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    child: Image.asset('assets/trash_icon.png'),
+                                  ),
+                                  const SizedBox(width: 25),
+                                  CustomOutlinedButton(
+                                    label: const Text(
+                                      'Editar\nSensor',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    child: Image.asset('assets/edit_icon.png'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 30),
+                          ],
                         ),
-                        borderRadius:
-                            BorderRadius.circular(10), // Bordas levemente arredondadas
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.blue, Colors.white],
-                          stops: [0.5, 0.5], // Isso cria uma borda de gradiente
-                        ),
-                      ),
-                      child: IconButton(
-                        icon: Icon(Icons.edit, color: Colors.white), // Substitua pelo ícone desejado
-                        onPressed: () {
-                          // Adicione a ação do botão aqui
-                        },
-                      ),
-                    ),
-                    Text('Adicionar Sensor'),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF195AFF), Color(0xFF195AFF)],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      ),
-                      child: IconButton(
-                        icon:
-                            Icon(Icons.delete, color:
-                                Colors.white), // Substitua pelo ícone desejado
-                        onPressed: () {
-                          // Adicione a ação do botão aqui
-                        },
-                      ),
-                    ),
-                    Text('Remover Sensor'),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(50),
-                        gradient:
-                            LinearGradient(colors:
-                                [Color(0xFF195AFF), Color(0xFF195AFF)],
-                                begin:
-                                    Alignment.topCenter,
-                                end:
-                                    Alignment.bottomCenter),
-                      ),
-                      child:
-                          IconButton(icon:
-                              Icon(Icons.edit, color:
-                                  Colors.white), // Substitua pelo ícone desejado
-                              onPressed:
-                                  () {
-                            // Adicione a ação do botão aqui
-                          }),
-                    ),
-                    Text('Editar Sensor'),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+                      );
+                    }
+                  });
+            }
+          }),
     );
   }
 }

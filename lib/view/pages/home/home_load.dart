@@ -19,7 +19,8 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(),
             child: Center(
               child: Image.asset(
-                  'assets/logo_tempmetter.png'),
+                'assets/logo_tempmetter.png',
+              ),
             ),
           ),
         ],

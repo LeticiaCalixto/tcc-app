@@ -23,3 +23,6 @@ flutter:
   assets:
     - assets/logo_inatel.png
     - assets/logo_tempmetter.png
+    - assets/sensor_icon.png
+    - assets/trash_icon.png
+    - assets/edit_icon.png
