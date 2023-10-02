@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradient_borders/gradient_borders.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   const CustomOutlinedButton({
@@ -25,7 +26,16 @@ class CustomOutlinedButton extends StatelessWidget {
                 height: 95,
                 width: 95,
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xFF0048ff), width: 2),
+                  border: const GradientBoxBorder(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.blue,
+                          Colors.white,
+                        ]),
+                    width: 2,
+                  ),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: child,
