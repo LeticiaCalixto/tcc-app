@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       body: FutureBuilder(
-          future: Future.delayed(const Duration(seconds: 0)),
+          future: Future.delayed(const Duration(seconds: 2)),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Column(
@@ -24,23 +24,29 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 50),
+                    padding: const EdgeInsets.only(top: 250),
                     child: Image.asset('assets/logo_inatel.png'),
                   ),
-                  Center(
-                    child: Image.asset(
-                      'assets/logo_tempmetter.png',
+                  Expanded(
+                    child:
+                        Container(), // Espaço vazio para ocupar o espaço disponível
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 180, left: 30),
+                    child: Center(
+                      child: Image.asset(
+                        'assets/logo_tempmetter.png',
+                      ),
                     ),
                   ),
                   const SizedBox(
                     height: 50,
                   ),
-                  // const CircularProgressIndicator(),
                 ],
               );
             } else {
               return FutureBuilder(
-                  future: Future.delayed(const Duration(seconds: 0)),
+                  future: Future.delayed(const Duration(seconds: 4)),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Column(
