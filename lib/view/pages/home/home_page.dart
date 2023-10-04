@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:tcc_app/view/components/outline_button.dart';
+import 'package:tcc_app/view/components/sensor_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,81 +56,121 @@ class _HomePageState extends State<HomePage> {
                         ],
                       );
                     } else {
-                      return Container(
-                        width: size.width,
-                        height: 390,
-                        decoration: const BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(40),
-                            bottomRight: Radius.circular(40),
-                          ),
-                          border: GradientBoxBorder(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.white,
-                                Colors.blue,
-                              ],
-                            ),
-                            width: 2,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 100),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Image.asset(
-                                  'assets/logo_tempmetter.png',
-                                ),
+                      return Column(
+                        children: [
+                          Container(
+                            width: size.width,
+                            height: 390,
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(40),
+                                bottomRight: Radius.circular(40),
                               ),
-                              const SizedBox(height: 28),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 22),
-                                child: Row(
-                                  children: [
-                                    CustomOutlinedButton(
-                                      label: const Text(
-                                        'Adicionar\nSensor',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      child:
-                                          Image.asset('assets/sensor_icon.png'),
-                                    ),
-                                    const SizedBox(width: 25),
-                                    CustomOutlinedButton(
-                                      label: const Text(
-                                        'Remover\nSensor',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      child:
-                                          Image.asset('assets/trash_icon.png'),
-                                    ),
-                                    const SizedBox(width: 25),
-                                    CustomOutlinedButton(
-                                      label: const Text(
-                                        'Editar\nSensor',
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      child:
-                                          Image.asset('assets/edit_icon.png'),
-                                    ),
+                              border: GradientBoxBorder(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.white,
+                                    Colors.blue,
                                   ],
                                 ),
+                                width: 2,
                               ),
-                              const SizedBox(height: 30),
-                            ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 100),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Image.asset(
+                                      'assets/logo_tempmetter.png',
+                                    ),
+                                  ),
+                                  const SizedBox(height: 28),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 22),
+                                    child: Row(
+                                      children: [
+                                        CustomOutlinedButton(
+                                          label: const Text(
+                                            'Adicionar\nSensor',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          child: Image.asset(
+                                              'assets/sensor_icon.png'),
+                                        ),
+                                        const SizedBox(width: 25),
+                                        CustomOutlinedButton(
+                                          label: const Text(
+                                            'Remover\nSensor',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          child: Image.asset(
+                                              'assets/trash_icon.png'),
+                                        ),
+                                        const SizedBox(width: 25),
+                                        CustomOutlinedButton(
+                                          label: const Text(
+                                            'Editar\nSensor',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          child: Image.asset(
+                                              'assets/edit_icon.png'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 30),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                          const SizedBox(height: 20),
+                          SensorCardList(
+                            sensors: [
+                              SensorCard(
+                                sensorName: 'Sensor 1',
+                              ),
+                              SensorCard(
+                                sensorName: 'Sensor 2',
+                              ),
+                            ],
+                          )
+                        ],
                       );
                     }
                   });
             }
           }),
+    );
+  }
+}
+
+class SensorCardList extends StatelessWidget {
+  const SensorCardList({
+    super.key,
+    required this.sensors,
+  });
+
+  final List<SensorCard> sensors;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 320,
+      child: ListView.separated(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemCount: sensors.length,
+        padding: const EdgeInsets.only(left: 10),
+        separatorBuilder: (context, index) => const SizedBox(width: 20),
+        itemBuilder: (_, index) {
+          return sensors[index];
+        },
+      ),
     );
   }
 }
