@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         child: FutureBuilder(
-            future: Future.delayed(const Duration(seconds: 0)),
+            future: Future.delayed(const Duration(seconds: 1)),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Column(
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                 );
               } else {
                 return FutureBuilder(
-                    future: Future.delayed(const Duration(seconds: 0)),
+                    future: Future.delayed(const Duration(seconds: 2)),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Column(
@@ -78,8 +78,8 @@ class _HomePageState extends State<HomePage> {
                                 'assets/logo_tempmetter.png',
                               ),
                             ),
-                            const SpinKitWanderingCubes(
-                              size: 40,
+                            const SpinKitFadingCircle(
+                              size: 60,
                               color: Colors.white,
                             ),
                           ],

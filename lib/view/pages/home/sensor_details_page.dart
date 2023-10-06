@@ -72,7 +72,6 @@ class _SensorDetailsPageState extends State<SensorDetailsPage> {
                 ],
               ),
             ),
-            Text("fgdsg")
           ],
         ),
       ),
