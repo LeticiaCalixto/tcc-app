@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:tcc_app/view/pages/home/sensor_details.dart';
+import 'package:tcc_app/models/sensor.dart';
+import 'package:tcc_app/view/pages/home/sensor_details_page.dart';
 
 class SensorCard extends StatelessWidget {
   const SensorCard({
     super.key,
-    required this.sensorName,
+    required this.sensor,
   });
-  final String sensorName;
+  final SensorEntity sensor;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -35,6 +36,17 @@ class SensorCard extends StatelessWidget {
                 ]),
           ),
         ),
+        Center(
+          child: Container(
+            child: Text(
+              sensor.temperature.toString() + '°C',
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(bottom: 50),
           child: Container(
@@ -51,44 +63,57 @@ class SensorCard extends StatelessWidget {
                   ]),
             ),
             child: Center(
-                child: Text(
-              sensorName,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            )),
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => const SensorPage()));
-          },
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            // padding: const EdgeInsets.only(bottom: 50),
-            child: Container(
-              width: 130,
-              height: 35,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                gradient: const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF034AFF),
-                      Colors.white,
-                    ]),
-              ),
-              child: const Center(
-                  child: Text(
-                'Mais detalhes',
-                style: TextStyle(
+              child: Text(
+                sensor.sensorName,
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
-              )),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 70),
+          // bottom: -10,
+          // padding:  EdgeInsets.only(top: ),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SensorDetailsPage(
+                    sensor: sensor,
+                  ),
+                ),
+              );
+            },
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              // padding: const EdgeInsets.only(bottom: 50),
+              child: Container(
+                width: 150,
+                height: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromARGB(255, 146, 171, 235),
+                        Color.fromARGB(255, 9, 29, 207),
+                      ]),
+                ),
+                child: const Center(
+                  child: Text(
+                    'Mais detalhes',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
             ),
           ),
         )

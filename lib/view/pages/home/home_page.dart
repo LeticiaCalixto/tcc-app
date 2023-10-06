@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:tcc_app/view/components/outline_button.dart';
 import 'package:tcc_app/view/components/sensor_card.dart';
+
+import '../../../models/sensor.dart';
+import '../../../service/list_sensor.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +15,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late Future<List<SensorEntity>> futureSensors;
+
+  @override
+  void initState() {
+    super.initState();
+    futureSensors = fetchSensors();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         child: FutureBuilder(
-            future: Future.delayed(const Duration(seconds: 1)),
+            future: Future.delayed(const Duration(seconds: 0)),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Column(
@@ -55,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                 );
               } else {
                 return FutureBuilder(
-                    future: Future.delayed(const Duration(seconds: 2)),
+                    future: Future.delayed(const Duration(seconds: 0)),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Column(
@@ -66,7 +78,10 @@ class _HomePageState extends State<HomePage> {
                                 'assets/logo_tempmetter.png',
                               ),
                             ),
-                            const CircularProgressIndicator(),
+                            const SpinKitWanderingCubes(
+                              size: 40,
+                              color: Colors.white,
+                            ),
                           ],
                         );
                       } else {
@@ -152,13 +167,28 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            SensorCardList(
+                            const SensorCardList(
                               sensors: [
                                 SensorCard(
-                                  sensorName: 'Sensor 1',
+                                  sensor: SensorEntity(
+                                    sensorId: 1,
+                                    sensorName: "Caixa 3",
+                                    temperature: 3,
+                                  ),
                                 ),
                                 SensorCard(
-                                  sensorName: 'Sensor 2',
+                                  sensor: SensorEntity(
+                                    sensorId: 2,
+                                    sensorName: "Geladeira",
+                                    temperature: 1,
+                                  ),
+                                ),
+                                SensorCard(
+                                  sensor: SensorEntity(
+                                    sensorId: 3,
+                                    sensorName: "Caixa 12",
+                                    temperature: -3,
+                                  ),
                                 ),
                               ],
                             )
@@ -182,13 +212,13 @@ class SensorCardList extends StatelessWidget {
   final List<SensorCard> sensors;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 320,
+    return Expanded(
+      // height: 320,
       child: ListView.separated(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: sensors.length,
-        padding: const EdgeInsets.only(left: 20),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         separatorBuilder: (context, index) => const SizedBox(width: 20),
         itemBuilder: (_, index) {
           return sensors[index];
