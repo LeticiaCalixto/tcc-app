@@ -49,8 +49,7 @@ class _HomePageState extends State<HomePage> {
                       child: Image.asset('assets/logo_inatel.png'),
                     ),
                     Expanded(
-                      child:
-                          Container(), // Espaço vazio para ocupar o espaço disponível
+                      child: Container(),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 180, left: 30),
@@ -136,6 +135,9 @@ class _HomePageState extends State<HomePage> {
                                                 'Adicionar\nSensor',
                                                 textAlign: TextAlign.center,
                                               ),
+                                              onPressed: () {
+                                                showAddModal(context);
+                                              },
                                               child: Image.asset(
                                                   'assets/sensor_icon.png'),
                                             ),
@@ -199,6 +201,101 @@ class _HomePageState extends State<HomePage> {
               }
             }),
       ),
+    );
+  }
+
+  showAddModal(BuildContext context) {
+    String title = "Adicionar Sensor";
+    String confirmationButton = "Salvar";
+    String skipButton = "Cancelar";
+
+    TextEditingController nameController = TextEditingController();
+    TextEditingController descriptionController = TextEditingController();
+    TextEditingController tempMinController = TextEditingController();
+    TextEditingController tempMaxController = TextEditingController();
+
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(24),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.all(32.0),
+          child: ListView(
+            children: [
+              Text(title, style: Theme.of(context).textTheme.headline5),
+              const SizedBox(
+                height: 16,
+              ),
+              TextFormField(
+                controller: nameController,
+                decoration:
+                    const InputDecoration(label: Text("Nome do Sensor")),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              TextFormField(
+                controller: descriptionController,
+                decoration: const InputDecoration(label: Text("Descrição")),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 140,
+                    child: TextFormField(
+                      controller: tempMinController,
+                      decoration: const InputDecoration(
+                          label: Text("Temperatura Minima")),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 40,
+                  ),
+                  SizedBox(
+                    width: 140,
+                    child: TextFormField(
+                      controller: tempMaxController,
+                      decoration: const InputDecoration(
+                          label: Text("Temperatura Máxima")),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(skipButton),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        //TODO: Implementar adição
+                      },
+                      child: Text(confirmationButton)),
+                ],
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

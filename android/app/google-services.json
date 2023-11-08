@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "162833568216",
+    "project_id": "tempmetter-app",
+    "storage_bucket": "tempmetter-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162833568216:android:b41ec4e38a5805629a22ad",
+        "android_client_info": {
+          "package_name": "com.example.tcc_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbZfA3U7x4Eqz396pJveVdMU5UuEI1YBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
