@@ -188,7 +188,10 @@ class _HomePageState extends State<HomePage> {
                                                             TextAlign.center,
                                                       ),
                                                       onPressed: () {
-                                                        showAddModal(context, sensors: sensorsSnapshot.data);
+                                                        showAddModal(context,
+                                                            sensors:
+                                                                sensorsSnapshot
+                                                                    .data);
                                                       },
                                                       child: Image.asset(
                                                           'assets/edit_icon.png'),
@@ -209,18 +212,27 @@ class _HomePageState extends State<HomePage> {
                                           sensor: SensorEntity(
                                             sensorName: 'Caixa 3',
                                             temperature: 3,
+                                            tempMax: 5,
+                                            tempMin: 0,
+                                            description: "Vacina 1",
                                           ),
                                         ),
                                         SensorCard(
                                           sensor: SensorEntity(
                                             sensorName: 'Geladeira',
                                             temperature: 1,
+                                            tempMax: 4,
+                                            tempMin: -2,
+                                            description: "Vacina 2",
                                           ),
                                         ),
                                         SensorCard(
                                           sensor: SensorEntity(
                                             sensorName: 'Caixa 12',
                                             temperature: -3,
+                                            tempMax: -7,
+                                            tempMin: -2,
+                                            description: "Vacina 3",
                                           ),
                                         ),
                                       ],
@@ -385,8 +397,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        SensorEntity sensorsEntity = SensorEntity(
-                            sensorName: nameController.text, temperature: 0);
+                        // SensorEntity sensorsEntity = SensorEntity(
+                        //     sensorName: nameController.text, temperature: 0);
                       },
                       child: Text(confirmationButton)),
                 ],
