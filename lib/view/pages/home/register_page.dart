@@ -40,7 +40,7 @@ class _RegisterPage extends State<RegisterPage> {
             height: 200,
             width: size.width,
             padding: const EdgeInsets.only(left: 20, bottom: 10),
-            color: Colors.blue,
+            color: const Color(0xFF034AFF),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -78,21 +78,22 @@ class _RegisterPage extends State<RegisterPage> {
           Container(
             padding: const EdgeInsets.all(20),
             child: Column(children: [
+              const Gap(30),
               TempmetterTextField(
                 label: 'Name',
                 controller: _nameController,
               ),
-              const Gap(20),
+              const Gap(30),
               TempmetterTextField(
                 label: 'Email',
                 controller: _emailController,
               ),
-              const Gap(20),
+              const Gap(30),
               TempmetterTextField(
                 label: 'Senha',
                 controller: _passwordController,
               ),
-              const Gap(20),
+              const Gap(30),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
