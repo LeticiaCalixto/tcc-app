@@ -1,12 +1,12 @@
 class SensorEntity {
-  final String sensorName;
+  final String name;
   final int temperature;
   final int tempMax;
   final int tempMin;
   final String description;
 
   const SensorEntity({
-    required this.sensorName,
+    required this.name,
     required this.temperature,
     required this.tempMax,
     required this.tempMin,
@@ -15,7 +15,7 @@ class SensorEntity {
 
   factory SensorEntity.fromJson(Map<String, dynamic> json) {
     return SensorEntity(
-      sensorName: json['sensorName'],
+      name: json['name'],
       temperature: json['temperature'],
       tempMax: json['tempMax'],
       tempMin: json['tempMin'],
@@ -23,13 +23,12 @@ class SensorEntity {
     );
   }
 
-  //from map
   factory SensorEntity.fromMap(Map<String, dynamic> map) {
     return SensorEntity(
-      sensorName: map['sensorName'],
-      temperature: map['temperature'],
-      tempMax: map['tempMax'],
-      tempMin: map['tempMin'],
+      name: map['name'],
+      temperature: map['temperature'] as int,
+      tempMax: map['tempMax'] as int,
+      tempMin: map['tempMin'] as int,
       description: map['description'],
     );
   }

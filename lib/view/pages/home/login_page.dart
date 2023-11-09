@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:tcc_app/view/components/outline_button.dart';
 import 'package:tcc_app/view/pages/home/home_page.dart';
+import 'package:tcc_app/view/pages/home/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -31,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: const Color(0xFF034AFF),
       body: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
@@ -65,18 +66,50 @@ class _LoginPageState extends State<LoginPage> {
                       label: 'Senha',
                       controller: _passwordController,
                     ),
-                    const Gap(30),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {},
+                        style: Theme.of(context).textButtonTheme.style,
+                        child: Text(
+                          'Esqueceu a senha?',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: Colors.grey[400],
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ),
+                    ),
                     ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()),
+                        );
+                      },
+                      child: const Text(
+                        'Login',
+                      ),
+                    ),
+                    const Gap(20),
+                    TextButton(
                         onPressed: () {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()),
-                          );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegisterPage()),
+                        );
                         },
-                        child: const Text(
-                          'Login',
-                        )),
+                        style: Theme.of(context).textButtonTheme.style,
+                        child: Text(
+                          'Criar conta',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: Colors.grey[400],
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ),
                   ],
                 ),
               )
@@ -104,7 +137,7 @@ class TempmetterTextField extends StatelessWidget {
       height: 48,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.grey[200],
+        color: const Color.fromARGB(255, 236, 235, 238),
       ),
       child: TextFormField(
         controller: controller,

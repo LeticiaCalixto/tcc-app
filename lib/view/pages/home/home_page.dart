@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
@@ -210,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                                       sensors: [
                                         SensorCard(
                                           sensor: SensorEntity(
-                                            sensorName: 'Caixa 3',
+                                            name: 'Caixa 3',
                                             temperature: 3,
                                             tempMax: 5,
                                             tempMin: 0,
@@ -219,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         SensorCard(
                                           sensor: SensorEntity(
-                                            sensorName: 'Geladeira',
+                                            name: 'Geladeira',
                                             temperature: 1,
                                             tempMax: 4,
                                             tempMin: -2,
@@ -228,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         SensorCard(
                                           sensor: SensorEntity(
-                                            sensorName: 'Caixa 12',
+                                            name: 'Caixa 12',
                                             temperature: -3,
                                             tempMax: -7,
                                             tempMin: -2,
@@ -245,10 +244,13 @@ class _HomePageState extends State<HomePage> {
                     }),
               );
             } else {
-              return const Center(
-                child: SpinKitFadingCircle(
-                  size: 60,
-                  color: Colors.white,
+              return Container(
+                color: const Color(0xFF034AFF),
+                child: const Center(
+                  child: SpinKitFadingCircle(
+                    size: 60,
+                    color: Colors.white,
+                  ),
                 ),
               );
             }

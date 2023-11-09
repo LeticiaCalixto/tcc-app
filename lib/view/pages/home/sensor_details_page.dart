@@ -58,7 +58,7 @@ class _SensorDetailsPageState extends State<SensorDetailsPage> {
                     ),
                     child: Center(
                       child: Text(
-                        widget.sensor.sensorName,
+                        widget.sensor.name,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.white,

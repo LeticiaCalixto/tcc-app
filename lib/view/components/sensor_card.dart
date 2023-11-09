@@ -62,7 +62,7 @@ class SensorCard extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                sensor.sensorName,
+                sensor.name,
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
