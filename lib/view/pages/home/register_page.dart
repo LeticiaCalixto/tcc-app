@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:tcc_app/view/pages/home/login_page.dart';
@@ -13,6 +14,7 @@ class _RegisterPage extends State<RegisterPage> {
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  final _firebaseAuth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -78,9 +80,9 @@ class _RegisterPage extends State<RegisterPage> {
           Container(
             padding: const EdgeInsets.all(20),
             child: Column(children: [
-              const Gap(30),
+              const Gap(10),
               TempmetterTextField(
-                label: 'Name',
+                label: 'Nome',
                 controller: _nameController,
               ),
               const Gap(30),
@@ -96,10 +98,7 @@ class _RegisterPage extends State<RegisterPage> {
               const Gap(30),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
+                  cadastrar();
                 },
                 child: const Text(
                   'Cadastrar',
@@ -110,6 +109,45 @@ class _RegisterPage extends State<RegisterPage> {
         ],
       ),
     );
+  }
+
+  cadastrar() async {
+    try {
+      UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      if (userCredential.user != null) {
+        userCredential.user!.updateDisplayName(_nameController.text);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Cadastrado com sucesso.'),
+          ),
+        );
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ));
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('A senha deve ter pelo menos 6 caracteres.'),
+          ),
+        );
+      } else if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Usuário já cadastrado.'),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }
 

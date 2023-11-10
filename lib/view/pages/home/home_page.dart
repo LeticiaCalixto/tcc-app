@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: FutureBuilder<List<SensorEntity>>(
           future: fetchSensors(),
           builder: (context, sensorsSnapshot) {
@@ -205,35 +206,13 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     const SizedBox(height: 20),
-                                    const SensorCardList(
+                                    SensorCardList(
                                       sensors: [
-                                        SensorCard(
-                                          sensor: SensorEntity(
-                                            name: 'Caixa 3',
-                                            temperature: 3,
-                                            tempMax: 5,
-                                            tempMin: 0,
-                                            description: "Vacina 1",
-                                          ),
-                                        ),
-                                        SensorCard(
-                                          sensor: SensorEntity(
-                                            name: 'Geladeira',
-                                            temperature: 1,
-                                            tempMax: 4,
-                                            tempMin: -2,
-                                            description: "Vacina 2",
-                                          ),
-                                        ),
-                                        SensorCard(
-                                          sensor: SensorEntity(
-                                            name: 'Caixa 12',
-                                            temperature: -3,
-                                            tempMax: -7,
-                                            tempMin: -2,
-                                            description: "Vacina 3",
-                                          ),
-                                        ),
+                                        for (var sensor
+                                            in sensorsSnapshot.data!)
+                                          SensorCard(
+                                            sensor: sensor,
+                                          )
                                       ],
                                     )
                                   ],

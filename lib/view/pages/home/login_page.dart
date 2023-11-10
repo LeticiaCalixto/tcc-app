@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:tcc_app/service/auth_service.dart';
 import 'package:tcc_app/view/pages/home/home_page.dart';
 import 'package:tcc_app/view/pages/home/register_page.dart';
 
@@ -73,43 +74,63 @@ class _LoginPageState extends State<LoginPage> {
                         style: Theme.of(context).textButtonTheme.style,
                         child: Text(
                           'Esqueceu a senha?',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: Colors.grey[400],
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: Colors.grey[400],
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePage()),
-                        );
-                      },
+                      onPressed: () => authService(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                        onSuccess: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomePage(),
+                            ),
+                          );
+                        },
+                        onUserNotFound: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Usuário não encontrado.'),
+                            ),
+                          );
+                        },
+                        onWrongPassword: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Senha incorreta.'),
+                            ),
+                          );
+                        },
+                      ),
                       child: const Text(
                         'Login',
                       ),
                     ),
                     const Gap(20),
                     TextButton(
-                        onPressed: () {
-                          Navigator.push(
+                      onPressed: () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const RegisterPage()),
                         );
-                        },
-                        style: Theme.of(context).textButtonTheme.style,
-                        child: Text(
-                          'Criar conta',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: Colors.grey[400],
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
+                      },
+                      style: Theme.of(context).textButtonTheme.style,
+                      child: Text(
+                        'Criar conta',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Colors.grey[400],
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
+                    ),
                   ],
                 ),
               )

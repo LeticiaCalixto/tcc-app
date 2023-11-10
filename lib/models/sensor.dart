@@ -1,9 +1,9 @@
 class SensorEntity {
-  final String name;
-  final int temperature;
-  final int tempMax;
-  final int tempMin;
-  final String description;
+  final String? name;
+  final int? temperature;
+  final int? tempMax;
+  final int? tempMin;
+  final String? description;
 
   const SensorEntity({
     required this.name,
@@ -26,9 +26,9 @@ class SensorEntity {
   factory SensorEntity.fromMap(Map<String, dynamic> map) {
     return SensorEntity(
       name: map['name'],
-      temperature: map['temperature'] as int,
-      tempMax: map['tempMax'] as int,
-      tempMin: map['tempMin'] as int,
+      temperature: map['temperature'] as int?,
+      tempMax: map['tempMax'] as int?,
+      tempMin: map['tempMin'] as int?,
       description: map['description'],
     );
   }
