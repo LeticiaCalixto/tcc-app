@@ -67,21 +67,22 @@ class _LoginPageState extends State<LoginPage> {
                       label: 'Senha',
                       controller: _passwordController,
                     ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        style: Theme.of(context).textButtonTheme.style,
-                        child: Text(
-                          'Esqueceu a senha?',
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: Colors.grey[400],
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                      ),
-                    ),
+                    const Gap(30),
+                    // Align(
+                    //   alignment: Alignment.centerRight,
+                    //   child: TextButton(
+                    //     onPressed: () {},
+                    //     style: Theme.of(context).textButtonTheme.style,
+                    //     child: Text(
+                    //       'Esqueceu a senha?',
+                    //       style:
+                    //           Theme.of(context).textTheme.bodySmall?.copyWith(
+                    //                 color: Colors.grey[400],
+                    //                 fontWeight: FontWeight.bold,
+                    //               ),
+                    //     ),
+                    //   ),
+                    // ),
                     ElevatedButton(
                       onPressed: () {
                         verifyPasswordAndEmail(

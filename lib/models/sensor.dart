@@ -4,6 +4,7 @@ class SensorEntity {
   final int? tempMax;
   final int? tempMin;
   final String? description;
+  final String? responsible;
 
   const SensorEntity({
     required this.name,
@@ -11,6 +12,7 @@ class SensorEntity {
     required this.tempMax,
     required this.tempMin,
     required this.description,
+    required this.responsible,
   });
 
   factory SensorEntity.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class SensorEntity {
       tempMax: json['tempMax'],
       tempMin: json['tempMin'],
       description: json['description'],
+      responsible: json['responsible'],
     );
   }
 
@@ -30,6 +33,7 @@ class SensorEntity {
       tempMax: map['tempMax'] as int?,
       tempMin: map['tempMin'] as int?,
       description: map['description'],
+      responsible: map['responsible'],
     );
   }
 }

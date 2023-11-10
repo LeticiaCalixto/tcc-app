@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
@@ -21,11 +22,14 @@ class _HomePageState extends State<HomePage> {
   late Future<List<SensorEntity>> futureSensors;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  late String emailResponsible = auth.currentUser!.email.toString();
 
   @override
   void initState() {
     super.initState();
-    futureSensors = fetchSensors();
+    futureSensors = fetchSensors(emailResponsible: emailResponsible);
   }
 
   @override
@@ -35,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: FutureBuilder<List<SensorEntity>>(
-          future: fetchSensors(),
+          future: fetchSensors(emailResponsible: emailResponsible),
           builder: (context, sensorsSnapshot) {
             if (sensorsSnapshot.hasData) {
               return DecoratedBox(
