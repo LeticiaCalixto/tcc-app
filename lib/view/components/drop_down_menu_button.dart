@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
 
-class DropDownMenuButton extends StatefulWidget {
+class DropDownMenuButton<T> extends StatefulWidget {
   const DropDownMenuButton({
-    super.key,
+    Key? key,
+    required this.itemBuilder,
     required this.items,
-  });
+  }) : super(key: key);
 
-  final List<dynamic> items;
+  final List<T> items;
+  final Widget Function(T) itemBuilder;
 
   @override
-  State<DropDownMenuButton> createState() => _DropDownMenuButtonState();
+  State<DropDownMenuButton<T>> createState() => _DropDownMenuButtonState<T>();
 }
 
-class _DropDownMenuButtonState extends State<DropDownMenuButton> {
-  late String _currentValue;
+class _DropDownMenuButtonState<T> extends State<DropDownMenuButton<T>> {
+  late T _currentValue;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     _currentValue = widget.items.first;
   }
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
+    return DropdownButton<T>(
       value: _currentValue,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
@@ -31,23 +33,20 @@ class _DropDownMenuButtonState extends State<DropDownMenuButton> {
         height: 2,
         color: const Color(0xFF0047FF),
       ),
-      onChanged: (String? value) {
+      onChanged: (value) {
         // This is called when the user selects an item.
         setState(() {
-          _currentValue = value!;
+          _currentValue = value ?? widget.items.first;
         });
       },
-      items: widget.items
-          .map<DropdownMenuItem<String>>(
-            (dynamic value) => DropdownMenuItem<String>(
-              value: value,
-              child: SizedBox(
-                width: 290,
-                child: Text(value),
-              ),
-            ),
-          )
-          .toList(),
+      items: widget.itemBuilder != null
+          ? widget.items.map<DropdownMenuItem<T>>((T value) {
+              return DropdownMenuItem<T>(
+                value: value,
+                child: widget.itemBuilder(value),
+              );
+            }).toList()
+          : null,
     );
   }
 }

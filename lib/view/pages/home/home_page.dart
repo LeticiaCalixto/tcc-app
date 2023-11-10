@@ -285,16 +285,27 @@ class _HomePageState extends State<HomePage> {
         return Container(
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.all(32.0),
-          child: ListView(
+          child: Column(
             children: [
-              Text(title, style: Theme.of(context).textTheme.headline5),
+              Text(
+                title,
+              ),
               const SizedBox(
                 height: 16,
               ),
-              DropDownMenuButton(items: [
-                sensors,
-              ]),
-              const SizedBox(
+              DropDownMenuButton<List<SensorEntity>?>(
+                itemBuilder: (List<SensorEntity>? items) {
+                  List<Text> showItems = [];
+                  for (var item in items ?? []) {
+                    showItems.add(Text(item.name ?? ''));
+                  }
+                  return Column(children: showItems);
+                },
+                items: [
+                  sensors, // Assuming sensors is a List<SensorEntity>
+                ],
+              ),
+              const SizedBox( 
                 height: 16,
               ),
               TextFormField(

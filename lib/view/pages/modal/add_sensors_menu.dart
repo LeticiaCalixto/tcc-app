@@ -1,20 +1,22 @@
+// import 'package:flutter/material.dart';
+// import 'package:tcc_app/models/sensor.dart';
+
 // class AddSensorsMenu extends StatefulWidget {
-//   late List<SensorEntity>? sensors,
+//   final List<SensorEntity>? sensors;
 
 //   const AddSensorsMenu({
 //     Key? key,
-//     required this.items,
+//     required this.sensors,
 //   }) : super(key: key);
-
-//   final List<dynamic> items;
 
 //   @override
 //   State<AddSensorsMenu> createState() => _AddSensorsMenuState();
+// }
 
-//   showAddModal(
-//     BuildContext context, {
-//     required List<SensorEntity>? sensors,
-//   }) {
+// class _AddSensorsMenuState extends State<AddSensorsMenu> {
+//   String? selectedSensor;
+
+//   void _showAddModal(BuildContext context) {
 //     String title = 'Adicionar Sensor';
 //     String confirmationButton = 'Salvar';
 //     String skipButton = 'Cancelar';
@@ -40,9 +42,20 @@
 //               const SizedBox(
 //                 height: 16,
 //               ),
-//               DropDownMenuButton(items: [
-//                 sensors,
-//               ]),
+//               DropdownButton<String>(
+//                 items: widget.sensors?.map((sensor) {
+//                   return DropdownMenuItem<String>(
+//                     value: sensor.name,
+//                     child: Text(sensor.name),
+//                   );
+//                 }).toList(),
+//                 onChanged: (String? value) {
+//                   setState(() {
+//                     selectedSensor = value;
+//                   });
+//                 },
+//                 value: selectedSensor,
+//               ),
 //               const SizedBox(
 //                 height: 16,
 //               ),
@@ -61,7 +74,7 @@
 //                     child: TextFormField(
 //                       controller: tempMinController,
 //                       decoration: const InputDecoration(
-//                           label: Text('Temperatura Minima')),
+//                           label: Text('Temperatura Mínima')),
 //                     ),
 //                   ),
 //                   const SizedBox(
@@ -93,10 +106,13 @@
 //                     width: 16,
 //                   ),
 //                   ElevatedButton(
-//                       onPressed: () {
-//                         //TODO: Implementar adição
-//                       },
-//                       child: Text(confirmationButton)),
+//                     onPressed: () {
+//                       // Implemente a lógica para adição
+//                       // Use os controladores descriptionController, tempMinController, tempMaxController
+//                       // E a variável selectedSensor, se aplicável
+//                     },
+//                     child: Text(confirmationButton),
+//                   ),
 //                 ],
 //               )
 //             ],
