@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:tcc_app/models/sensor.dart';
+import 'package:tcc_app/view/pages/home/home_page.dart';
+
+import '../../components/line_chart.dart';
 
 class SensorDetailsPage extends StatefulWidget {
   const SensorDetailsPage({
@@ -37,9 +41,36 @@ class _SensorDetailsPageState extends State<SensorDetailsPage> {
               ),
               child: Column(
                 children: [
-                  Image.asset(
-                    'assets/logo_tempmetter.png',
-                    height: 70,
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(
+                            context,
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(10),
+                        ),
+                        child: const Row(
+                          children: [
+                            Gap(20),
+                            Icon(
+                              Icons.arrow_back_ios,
+                              color: Color(0xFF0047FF),
+                            ),
+                            Gap(30),
+                          ],
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/logo_tempmetter.png',
+                        height: 70,
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   Container(
@@ -72,6 +103,7 @@ class _SensorDetailsPageState extends State<SensorDetailsPage> {
                 ],
               ),
             ),
+            LineChartComponent(),
           ],
         ),
       ),

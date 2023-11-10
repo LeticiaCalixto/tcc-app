@@ -19,6 +19,7 @@ dependencies:
   cloud_firestore: ^4.12.2
   gap: ^3.0.1
   firebase_auth: ^4.13.0
+  fl_chart: ^0.64.0
 
 dev_dependencies:
   flutter_test:
