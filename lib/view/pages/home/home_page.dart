@@ -8,6 +8,7 @@ import 'package:tcc_app/view/components/sensor_card.dart';
 
 import '../../../models/sensor.dart';
 import '../../../service/list_sensor.dart';
+import '../modal/logout_modal.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -137,10 +138,30 @@ class _HomePageState extends State<HomePage> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: [
-                                              Center(
-                                                child: Image.asset(
-                                                  'assets/logo_tempmetter.png',
-                                                ),
+                                              Row(
+                                                children: [
+                                                  const SizedBox(width: 10),
+                                                  Center(
+                                                    child: Image.asset(
+                                                      'assets/logo_tempmetter.png',
+                                                    ),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      dialogBuilder(context);
+                                                    },
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      shape:
+                                                          const CircleBorder(),
+                                                    ),
+                                                    child: const Icon(
+                                                      Icons.logout,
+                                                      color: Colors.white,
+                                                    ),
+                                                  )
+                                                ],
                                               ),
                                               const SizedBox(height: 28),
                                               Padding(

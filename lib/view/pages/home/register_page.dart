@@ -151,6 +151,27 @@ class _RegisterPage extends State<RegisterPage> {
   }
 }
 
+void verifyPasswordAndEmail(
+  BuildContext context, {
+  required String email,
+  required String password,
+  required String name,
+}) {
+  if (email.isEmpty || password.isEmpty || name.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Preencha todos os campos.'),
+      ),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Usuário não encontrado.'),
+      ),
+    );
+  }
+}
+
 class TempmetterTextField extends StatelessWidget {
   final String label;
   final TextEditingController controller;

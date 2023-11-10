@@ -83,32 +83,39 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () => authService(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                        onSuccess: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const HomePage(),
-                            ),
-                          );
-                        },
-                        onUserNotFound: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Usuário não encontrado.'),
-                            ),
-                          );
-                        },
-                        onWrongPassword: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Senha incorreta.'),
-                            ),
-                          );
-                        },
-                      ),
+                      onPressed: () {
+                        verifyPasswordAndEmail(
+                          context,
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        );
+                        authService(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                          onSuccess: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
+                          },
+                          onUserNotFound: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Usuário não encontrado.'),
+                              ),
+                            );
+                          },
+                          onWrongPassword: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Senha incorreta.'),
+                              ),
+                            );
+                          },
+                        );
+                      },
                       child: const Text(
                         'Login',
                       ),
@@ -137,6 +144,20 @@ class _LoginPageState extends State<LoginPage> {
             ]),
           ),
         ),
+      ),
+    );
+  }
+}
+
+void verifyPasswordAndEmail(
+  BuildContext context, {
+  required String email,
+  required String password,
+}) {
+  if (email.isEmpty || password.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Preencha todos os campos.'),
       ),
     );
   }

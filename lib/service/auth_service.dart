@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tcc_app/view/pages/home/login_page.dart';
 
-Future<UserCredential> authService({
+Future<UserCredential?> authService({
   required String email,
   required String password,
   final VoidCallback? onSuccess,
@@ -9,7 +10,7 @@ Future<UserCredential> authService({
   final VoidCallback? onWrongPassword,
 }) async {
   final _firebaseAuth = FirebaseAuth.instance;
-  late UserCredential userCredential;
+  UserCredential? userCredential;
   try {
     userCredential = await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
@@ -24,7 +25,18 @@ Future<UserCredential> authService({
       onUserNotFound?.call();
     } else if (e.code == 'wrong-password') {
       onWrongPassword?.call();
+    } else {
+      onUserNotFound?.call();
     }
   }
   return userCredential;
+}
+
+Future<void> signOut({
+  required BuildContext context,
+}) async {
+  await FirebaseAuth.instance.signOut().then(
+        (user) => Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginPage())),
+      );
 }
