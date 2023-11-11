@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:tcc_app/models/sensor.dart';
-import 'package:tcc_app/view/pages/home/home_page.dart';
-
-import '../../components/line_chart.dart';
+import 'package:tcc_app/view/components/line_chart.dart';
 
 class SensorDetailsPage extends StatefulWidget {
   const SensorDetailsPage({
@@ -20,6 +18,9 @@ class SensorDetailsPage extends StatefulWidget {
 class _SensorDetailsPageState extends State<SensorDetailsPage> {
   @override
   Widget build(BuildContext context) {
+    print('tempMin: ${widget.sensor.temperature}');
+    print('tempMax: ${widget.sensor.tempMax}');
+
     return Scaffold(
       body: DecoratedBox(
         decoration: const BoxDecoration(
@@ -103,7 +104,49 @@ class _SensorDetailsPageState extends State<SensorDetailsPage> {
                 ],
               ),
             ),
-            LineChartComponent(),
+            const Gap(30),
+            const LineChartComponent(),
+            const Gap(30),
+            const Text(
+              'Temperatura atual:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Center(
+              child: Text(
+                '${widget.sensor.temperature.toString()}°C',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const Gap(30),
+            const Text(
+              'Faixa de temperatura aceitavel:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Gap(10),
+            Center(
+              child: Text(
+                '${widget.sensor.tempMin != null ? widget.sensor.tempMin.toString() + '°C' : '!'}'
+                '   à   '
+                '${widget.sensor.tempMax != null ? widget.sensor.tempMax.toString() + '°C' : '!'}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),

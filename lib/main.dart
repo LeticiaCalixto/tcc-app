@@ -10,6 +10,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   // Verify if user is logged in
   final firebaseAuth = FirebaseAuth.instance;
   final user = firebaseAuth.currentUser;

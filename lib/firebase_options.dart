@@ -52,6 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '162833568216',
     projectId: 'tempmetter-app',
     authDomain: 'tempmetter-app.firebaseapp.com',
+    databaseURL: 'https://tempmetter-app-default-rtdb.firebaseio.com/',
     storageBucket: 'tempmetter-app.appspot.com',
     measurementId: 'G-JZ4MR8KF9G',
   );
@@ -60,6 +61,7 @@ class DefaultFirebaseOptions {
     apiKey: 'AIzaSyBbZfA3U7x4Eqz396pJveVdMU5UuEI1YBY',
     appId: '1:162833568216:android:b41ec4e38a5805629a22ad',
     messagingSenderId: '162833568216',
+    databaseURL: 'https://tempmetter-app-default-rtdb.firebaseio.com/',
     projectId: 'tempmetter-app',
     storageBucket: 'tempmetter-app.appspot.com',
   );
@@ -69,6 +71,7 @@ class DefaultFirebaseOptions {
     appId: '1:162833568216:ios:08e776db4cff97f09a22ad',
     messagingSenderId: '162833568216',
     projectId: 'tempmetter-app',
+    databaseURL: 'https://tempmetter-app-default-rtdb.firebaseio.com/',
     storageBucket: 'tempmetter-app.appspot.com',
     iosBundleId: 'com.example.tccApp',
   );

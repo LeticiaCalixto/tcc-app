@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:tcc_app/models/sensor.dart';
+import 'package:tcc_app/models/temperature.dart';
 import 'package:tcc_app/view/pages/home/sensor_details_page.dart';
 
 class SensorCard extends StatelessWidget {
@@ -8,7 +9,7 @@ class SensorCard extends StatelessWidget {
     super.key,
     required this.sensor,
   });
-  final SensorEntity sensor;
+  final TempSensorEntity sensor;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -38,7 +39,7 @@ class SensorCard extends StatelessWidget {
         ),
         Center(
             child: Text(
-              '${sensor.temperature.toString()}°C',
+              '${sensor.userData.userUid.readings.toString()}°C',
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 40,
@@ -62,7 +63,7 @@ class SensorCard extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                sensor.name ?? '',
+                'sensor.name ?? ',
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -77,14 +78,14 @@ class SensorCard extends StatelessWidget {
           // padding:  EdgeInsets.only(top: ),
           child: InkWell(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SensorDetailsPage(
-                    sensor: sensor,
-                  ),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => SensorDetailsPage(
+              //       sensor: sensor,
+              //     ),
+              //   ),
+              // );
             },
             child: Align(
               alignment: Alignment.bottomCenter,

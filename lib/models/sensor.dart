@@ -1,6 +1,6 @@
 class SensorEntity {
   final String? name;
-  final int? temperature;
+  final double? temperature;
   final int? tempMax;
   final int? tempMin;
   final String? description;
@@ -29,7 +29,7 @@ class SensorEntity {
   factory SensorEntity.fromMap(Map<String, dynamic> map) {
     return SensorEntity(
       name: map['name'],
-      temperature: map['temperature'] as int?,
+      temperature: map['temperature'] as double?,
       tempMax: map['tempMax'] as int?,
       tempMin: map['tempMin'] as int?,
       description: map['description'],

@@ -1,20 +1,30 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/sensor.dart';
+import 'package:firebase_database/firebase_database.dart';
+import '../models/temperature.dart';
 
-Future<List<SensorEntity>> fetchSensors({
+Future<TempSensorEntity?> fetchSensors({
   required String emailResponsible,
 }) async {
-  List<SensorEntity> temp = [];
+  late Future<TempSensorEntity?> temp = Future.value(null);
 
-  QuerySnapshot<Map<String, dynamic>> querySnapshot =
-      await FirebaseFirestore.instance.collection('sensors').get();
+  try {
+    final database = FirebaseDatabase.instance;
+    final rootRef = database.ref();
 
-  for (var sensor in querySnapshot.docs) {
-    Map<String, dynamic> sensorData = sensor.data();
+    DatabaseReference reference = FirebaseDatabase.instance
+        .ref()
+        .child('UserData')
+        .child('UserUID')
+        .child('readings');
 
-    if (sensorData['responsible'] == emailResponsible) {
-      temp.add(SensorEntity.fromMap(sensorData));
-    }
+    reference.onValue.listen((event) {
+      DataSnapshot dataSnapshot = event.snapshot;
+      Map<dynamic, dynamic>? aux = dataSnapshot.value as Map<dynamic, dynamic>?;
+
+      temp = Future.value(TempSensorEntity.fromJson(aux!));
+      
+    });
+  } catch (e) {
+    print('e: $e');
   }
 
   return temp;
