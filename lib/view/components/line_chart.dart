@@ -86,13 +86,13 @@ class _LineChartComponentState extends State<LineChartComponent> {
     String text;
     switch (value.toInt()) {
       case 1:
-        text = '1°';
+        text = '-5°';
         break;
       case 3:
-        text = '5°';
+        text = '0°';
         break;
       case 5:
-        text = '10°';
+        text = '5°';
         break;
       default:
         return Container();

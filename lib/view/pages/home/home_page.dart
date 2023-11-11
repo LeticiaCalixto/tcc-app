@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gap/gap.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:tcc_app/view/components/drop_down_menu_button.dart';
 import 'package:tcc_app/view/components/outline_button.dart';
@@ -369,7 +370,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   showRemoveModal(BuildContext context) {
-    String title = 'Adicionar Sensor';
+    String title = 'Remover Sensor';
     String confirmationButton = 'Apagar';
     String skipButton = 'Cancelar';
 
@@ -409,9 +410,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Text(skipButton),
                   ),
-                  const SizedBox(
-                    width: 16,
-                  ),
+                  const Gap(30),
                   ElevatedButton(
                       onPressed: () {
                         // SensorEntity sensorsEntity = SensorEntity(

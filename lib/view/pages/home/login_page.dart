@@ -52,10 +52,10 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: Column(
                   children: [
+                    const Gap(40),
                     SizedBox(
-                      width: 128,
-                      height: 128,
-                      child: Image.asset('assets/logo.png'),
+                      width: 228,
+                      child: Image.asset('assets/logo_tempmetter.png'),
                     ),
                     const Gap(40),
                     TempmetterTextField(
