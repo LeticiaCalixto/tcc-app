@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:tcc_app/models/sensor.dart';
-import 'package:tcc_app/models/temperature.dart';
 import 'package:tcc_app/view/pages/home/sensor_details_page.dart';
+
+import 'line_chart.dart';
 
 class SensorCard extends StatelessWidget {
   const SensorCard({
-    super.key,
+    Key? key, // Fix the key parameter
     required this.sensor,
-  });
-  final TempSensorEntity sensor;
+  }) : super(key: key);
+
+  final SensorEntity sensor;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -17,34 +20,50 @@ class SensorCard extends StatelessWidget {
       children: [
         Container(
           width: 200,
-          height: 325,
+          height: 425,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: const GradientBoxBorder(
-                gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                  Color(0xFF034AFF),
-                  Colors.white,
-                ])),
-            gradient: const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
                 colors: [
                   Color(0xFF034AFF),
                   Colors.white,
-                ]),
+                ],
+              ),
+            ),
+            gradient: const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF034AFF),
+                Colors.white,
+              ],
+            ),
           ),
         ),
-        Center(
+        const SizedBox(
+          width: 180,
+          child: Padding(
+              padding: EdgeInsets.only(top: 70),
+              child: LineChartComponent(
+                showHorizontalLines: false,
+                showVerticalLines: false,
+              )),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 5),
+          child: Center(
             child: Text(
-              '${sensor.userData.userUid.readings.toString()}°C',
+              '${sensor.temperature.toString()}°C',
               style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
             ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 50),
@@ -63,7 +82,7 @@ class SensorCard extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                'sensor.name ?? ',
+                sensor.name ?? '',
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -73,19 +92,19 @@ class SensorCard extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 70),
+          padding: const EdgeInsets.only(bottom: 105),
           // bottom: -10,
           // padding:  EdgeInsets.only(top: ),
           child: InkWell(
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => SensorDetailsPage(
-              //       sensor: sensor,
-              //     ),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SensorDetailsPage(
+                    sensor: sensor,
+                  ),
+                ),
+              );
             },
             child: Align(
               alignment: Alignment.bottomCenter,

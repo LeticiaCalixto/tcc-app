@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:tcc_app/models/temperature.dart';
 import 'package:tcc_app/view/components/drop_down_menu_button.dart';
-import 'package:tcc_app/view/components/outline_button.dart';
 import 'package:tcc_app/view/components/sensor_card.dart';
 
 import '../../../models/sensor.dart';
@@ -22,7 +20,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late Future<List<SensorEntity>> futureSensors;
-  late Future<TempSensorEntity?> futureTempSensors;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -32,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    futureTempSensors = fetchSensors(emailResponsible: emailResponsible);
+    futureSensors = fetchSensors(emailResponsible: emailResponsible);
   }
 
   @override
@@ -41,7 +38,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: FutureBuilder<TempSensorEntity?>(
+      body: FutureBuilder<List<SensorEntity>>(
           future: fetchSensors(emailResponsible: emailResponsible),
           builder: (context, sensorsSnapshot) {
             if (sensorsSnapshot.hasData) {
@@ -111,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Container(
                                       width: size.width,
-                                      height: 350,
+                                      height: 200,
                                       decoration: const BoxDecoration(
                                         color: Colors.transparent,
                                         borderRadius: BorderRadius.only(
@@ -171,78 +168,21 @@ class _HomePageState extends State<HomePage> {
                                                 ],
                                               ),
                                               const SizedBox(height: 28),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 22),
-                                                child: Row(
-                                                  children: [
-                                                    CustomOutlinedButton(
-                                                      label: const Text(
-                                                        'Adicionar\nSensor',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                      onPressed: () {
-                                                        // showAddModal(
-                                                        //   context,
-                                                        //   sensors:
-                                                        //       sensorsSnapshot
-                                                        //           .data,
-                                                        // );
-                                                      },
-                                                      child: Image.asset(
-                                                          'assets/sensor_icon.png'),
-                                                    ),
-                                                    const SizedBox(width: 25),
-                                                    CustomOutlinedButton(
-                                                      label: const Text(
-                                                        'Remover\nSensor',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                      onPressed: () {
-                                                        showRemoveModal(
-                                                            context);
-                                                      },
-                                                      child: Image.asset(
-                                                          'assets/trash_icon.png'),
-                                                    ),
-                                                    const SizedBox(width: 25),
-                                                    CustomOutlinedButton(
-                                                      label: const Text(
-                                                        'Editar\nSensor',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                      onPressed: () {
-                                                        // showAddModal(context,
-                                                        //     sensors:
-                                                        //         sensorsSnapshot
-                                                        //             .data);
-                                                      },
-                                                      child: Image.asset(
-                                                          'assets/edit_icon.png'),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              const SizedBox(height: 30),
                                             ],
                                           ),
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(height: 20),
-                                    // SensorCardList(
-                                    //   sensors: [
-                                    //     for (var sensor
-                                    //         in sensorsSnapshot.data!)
-                                    //       SensorCard(
-                                    //         sensor: sensor,
-                                    //       )
-                                    //   ],
-                                    // )
+                                    const SizedBox(height: 60),
+                                    SensorCardList(
+                                      sensors: [
+                                        for (var sensor
+                                            in sensorsSnapshot.data!)
+                                          SensorCard(
+                                            sensor: sensor,
+                                          )
+                                      ],
+                                    )
                                   ],
                                 );
                               }
@@ -266,9 +206,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   showAddModal(
-    BuildContext context, 
-    // required <TempSensorEntity?> sensors,
-  ) {
+    BuildContext context, {
+    required List<SensorEntity>? sensors,
+  }) {
     String title = 'Adicionar Sensor';
     String confirmationButton = 'Salvar';
     String skipButton = 'Cancelar';
@@ -296,18 +236,18 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 16,
               ),
-              // DropDownMenuButton<List<SensorEntity>?>(
-              //   itemBuilder: (List<SensorEntity>? items) {
-              //     List<Text> showItems = [];
-              //     for (var item in items ?? []) {
-              //       showItems.add(Text(item.name ?? ''));
-              //     }
-              //     return Column(children: showItems);
-              //   },
-              //   items: [
-              //     sensors, // Assuming sensors is a List<SensorEntity>
-              //   ],
-              // ),
+              DropDownMenuButton<List<SensorEntity>?>(
+                itemBuilder: (List<SensorEntity>? items) {
+                  List<Text> showItems = [];
+                  for (var item in items ?? []) {
+                    showItems.add(Text(item.name ?? ''));
+                  }
+                  return Column(children: showItems);
+                },
+                items: [
+                  sensors, // Assuming sensors is a List<SensorEntity>
+                ],
+              ),
               const SizedBox( 
                 height: 16,
               ),
