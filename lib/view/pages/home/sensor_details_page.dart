@@ -102,8 +102,13 @@ class _SensorDetailsPageState extends State<SensorDetailsPage> {
                 ],
               ),
             ),
-            const Gap(30),
-            const LineChartComponent(),
+            const SizedBox(
+              width: 385,
+              child: Padding(
+                padding: EdgeInsets.only(top: 70),
+                child: LineChartComponent(),
+              ),
+            ),
             const Gap(30),
             const Text(
               'Temperatura atual:',
