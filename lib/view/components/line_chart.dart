@@ -58,6 +58,9 @@ class _LineChartComponentState extends State<LineChartComponent> {
           isCurved: true,
           barWidth: 5,
           isStrokeCapRound: true,
+          dotData: const FlDotData(
+            show: false,
+          ),
           belowBarData: BarAreaData(
             show: true,
           ),
@@ -93,6 +96,9 @@ class _LineChartComponentState extends State<LineChartComponent> {
           isCurved: true,
           barWidth: 5,
           isStrokeCapRound: true,
+          dotData: const FlDotData(
+            show: false,
+          ),
           belowBarData: BarAreaData(
             show: true,
           ),

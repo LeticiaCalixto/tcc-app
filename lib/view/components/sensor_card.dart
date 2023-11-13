@@ -7,7 +7,7 @@ import 'line_chart.dart';
 
 class SensorCard extends StatelessWidget {
   const SensorCard({
-    Key? key, // Fix the key parameter
+    Key? key,
     required this.sensor,
   }) : super(key: key);
 
@@ -46,11 +46,12 @@ class SensorCard extends StatelessWidget {
         const SizedBox(
           width: 180,
           child: Padding(
-              padding: EdgeInsets.only(top: 70),
-              child: LineChartComponent(
-                showHorizontalLines: false,
-                showVerticalLines: false,
-              )),
+            padding: EdgeInsets.only(top: 70),
+            child: LineChartComponent(
+              showHorizontalLines: false,
+              showVerticalLines: false,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 5),
@@ -73,28 +74,30 @@ class SensorCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               gradient: const LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    Color(0xFF034AFF),
-                    Colors.white,
-                  ]),
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  Color(0xFF034AFF),
+                  Colors.white,
+                ],
+              ),
             ),
             child: Center(
               child: Text(
                 sensor.name ?? '',
                 style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 105),
-          // bottom: -10,
-          // padding:  EdgeInsets.only(top: ),
           child: InkWell(
             onTap: () {
               Navigator.push(
@@ -108,27 +111,28 @@ class SensorCard extends StatelessWidget {
             },
             child: Align(
               alignment: Alignment.bottomCenter,
-              // padding: const EdgeInsets.only(bottom: 50),
               child: Container(
                 width: 150,
                 height: 30,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   gradient: const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromARGB(255, 146, 171, 235),
-                        Color.fromARGB(255, 9, 29, 207),
-                      ]),
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromARGB(255, 146, 171, 235),
+                      Color.fromARGB(255, 9, 29, 207),
+                    ],
+                  ),
                 ),
                 child: const Center(
                   child: Text(
                     'Mais detalhes',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
