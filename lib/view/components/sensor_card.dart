@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:tcc_app/models/sensor.dart';
 import 'package:tcc_app/models/temperature.dart';
-import 'package:tcc_app/view/pages/home/sensor_details_page.dart';
 
 class SensorCard extends StatelessWidget {
   const SensorCard({

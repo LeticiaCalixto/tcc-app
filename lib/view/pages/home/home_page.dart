@@ -5,7 +5,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:tcc_app/models/temperature.dart';
-import 'package:tcc_app/view/components/drop_down_menu_button.dart';
 import 'package:tcc_app/view/components/outline_button.dart';
 import 'package:tcc_app/view/components/sensor_card.dart';
 
