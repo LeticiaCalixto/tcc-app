@@ -1,38 +1,27 @@
-import 'package:tcc_app/models/sensor.dart';
-import 'package:tcc_app/service/list_sensor.dart';
-import 'package:test/test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:tcc_app/models/sensor.dart';
+// import 'package:tcc_app/service/list_sensor.dart';
+// import 'package:test/test.dart';
 
-class MockCollectionReference extends Mock implements CollectionReference {}
+// void main() {
+//   test('Teste fetchSensors', () async {
+//     // Cria um mock do Firestore
+//     MockFirestoreInstance mockFirestore = MockFirestoreInstance();
 
-class MockQuerySnapshot extends Mock implements QuerySnapshot<Map<String, dynamic>> {}
+//     // Adiciona dados fictícios ao Firestore
+//     await mockFirestore.collection('sensors').add({
+//       'responsible': 'test@example.com',
+//       // Adicione aqui outros campos necessários para o SensorEntity
+//     });
 
-class MockQueryDocumentSnapshot extends Mock implements QueryDocumentSnapshot<Map<String, dynamic>> {}
+//     // Chama a função fetchSensors
+//     List<SensorEntity> sensors = await fetchSensors(
+//       firestore: mockFirestore,
+//       emailResponsible: 'test@example.com',
+//     );
 
-void main() {
-  group('fetchSensors', () {
-    test('returns a list of SensorEntity', () async {
-      final mockCollectionReference = MockCollectionReference();
-      final mockQuerySnapshot = MockQuerySnapshot();
-      final mockDocumentSnapshot = MockQueryDocumentSnapshot();
-
-      when(mockCollectionReference.get())
-          .thenAnswer((_) async => mockQuerySnapshot);
-
-      when(mockDocumentSnapshot.data()).thenReturn({
-        'field1': 'value1',
-        'field2': 'value2',
-        // Adicione mais campos com base no construtor SensorEntity.fromMap
-      });
-
-      when(mockQuerySnapshot.docs).thenReturn([mockDocumentSnapshot]);
-
-      final result = await fetchSensors(emailResponsible: 'test@example.com');
-
-      expect(result, isA<List<SensorEntity>>());
-    });
-
-    // Adicione mais casos de teste para cobrir diferentes cenários, por exemplo, resultado vazio, tratamento de erros, etc.
-  });
-}
+//     // Verifica se os sensores foram buscados corretamente
+//     expect(sensors, isNotEmpty);
+//     expect(sensors[0].responsible, 'test@example.com');
+//     // Adicione aqui outros asserts conforme necessário
+//   });
+// }

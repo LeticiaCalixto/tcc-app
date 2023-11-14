@@ -10,15 +10,16 @@ Future<UserCredential?> authService({
   final VoidCallback? onWrongPassword,
 }) async {
   final _firebaseAuth = FirebaseAuth.instance;
-  UserCredential? userCredential;
   try {
-    userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+    UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
     if (userCredential.user != null) {
       onSuccess?.call();
       return userCredential;
+    } else {
+      throw FirebaseAuthException(code: 'user-not-found');
     }
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
@@ -28,8 +29,8 @@ Future<UserCredential?> authService({
     } else {
       onUserNotFound?.call();
     }
+    return Future.error(e);
   }
-  return userCredential;
 }
 
 Future<void> signOut({
