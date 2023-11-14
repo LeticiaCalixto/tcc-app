@@ -1,18 +1,31 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import '../models/sensor.dart';
+import 'package:firebase_database/firebase_database.dart';
+import '../models/temperature.dart';
 
-Future<List<SensorEntity>> fetchSensors() async {
-  final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/sensors'));
+Future<TempSensorEntity?> fetchSensors({
+  required String emailResponsible,
+}) async {
+  late Future<TempSensorEntity?> temp = Future.value(null);
 
-  if (response.statusCode == 200) {
-    // Se o servidor retornar uma resposta 200 OK,
-    // então analise o JSON.
-    var sensorJson = jsonDecode(response.body) as List;
-    return sensorJson.map((sensor) => SensorEntity.fromJson(sensor)).toList();
-  } else {
-    // Se o servidor não retornar uma resposta 200 OK,
-    // então lance uma exceção.
-    throw Exception('Failed to load sensors');
+  try {
+    final database = FirebaseDatabase.instance;
+    final rootRef = database.ref();
+
+    DatabaseReference reference = FirebaseDatabase.instance
+        .ref()
+        .child('UserData')
+        .child('UserUID')
+        .child('readings');
+
+    reference.onValue.listen((event) {
+      DataSnapshot dataSnapshot = event.snapshot;
+      Map<dynamic, dynamic>? aux = dataSnapshot.value as Map<dynamic, dynamic>?;
+
+      temp = Future.value(TempSensorEntity.fromJson(aux!));
+      
+    });
+  } catch (e) {
+    print('e: $e');
   }
+
+  return temp;
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:tcc_app/models/sensor.dart';
+import 'package:tcc_app/view/components/line_chart.dart';
 
 class SensorDetailsPage extends StatefulWidget {
   const SensorDetailsPage({
@@ -16,6 +18,9 @@ class SensorDetailsPage extends StatefulWidget {
 class _SensorDetailsPageState extends State<SensorDetailsPage> {
   @override
   Widget build(BuildContext context) {
+    print('tempMin: ${widget.sensor.temperature}');
+    print('tempMax: ${widget.sensor.tempMax}');
+
     return Scaffold(
       body: DecoratedBox(
         decoration: const BoxDecoration(
@@ -37,9 +42,36 @@ class _SensorDetailsPageState extends State<SensorDetailsPage> {
               ),
               child: Column(
                 children: [
-                  Image.asset(
-                    'assets/logo_tempmetter.png',
-                    height: 70,
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(
+                            context,
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(10),
+                        ),
+                        child: const Row(
+                          children: [
+                            Gap(20),
+                            Icon(
+                              Icons.arrow_back_ios,
+                              color: Color(0xFF0047FF),
+                            ),
+                            Gap(30),
+                          ],
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/logo_tempmetter.png',
+                        height: 70,
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   Container(
@@ -58,7 +90,7 @@ class _SensorDetailsPageState extends State<SensorDetailsPage> {
                     ),
                     child: Center(
                       child: Text(
-                        widget.sensor.sensorName,
+                        widget.sensor.name ?? '',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.white,
@@ -70,6 +102,49 @@ class _SensorDetailsPageState extends State<SensorDetailsPage> {
                     ),
                   ),
                 ],
+              ),
+            ),
+            const Gap(30),
+            const LineChartComponent(),
+            const Gap(30),
+            const Text(
+              'Temperatura atual:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Center(
+              child: Text(
+                '${widget.sensor.temperature.toString()}°C',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const Gap(30),
+            const Text(
+              'Faixa de temperatura aceitavel:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Gap(10),
+            Center(
+              child: Text(
+                '${widget.sensor.tempMin != null ? widget.sensor.tempMin.toString() + '°C' : '!'}'
+                '   à   '
+                '${widget.sensor.tempMax != null ? widget.sensor.tempMax.toString() + '°C' : '!'}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
