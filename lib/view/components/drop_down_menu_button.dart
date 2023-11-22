@@ -39,14 +39,12 @@ class _DropDownMenuButtonState<T> extends State<DropDownMenuButton<T>> {
           _currentValue = value ?? widget.items.first;
         });
       },
-      items: widget.itemBuilder != null
-          ? widget.items.map<DropdownMenuItem<T>>((T value) {
-              return DropdownMenuItem<T>(
-                value: value,
-                child: widget.itemBuilder(value),
-              );
-            }).toList()
-          : null,
+      items: widget.items.map<DropdownMenuItem<T>>((T value) {
+        return DropdownMenuItem<T>(
+          value: value,
+          child: widget.itemBuilder(value),
+        );
+      }).toList(),
     );
   }
 }

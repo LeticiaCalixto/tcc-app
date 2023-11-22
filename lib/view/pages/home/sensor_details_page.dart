@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:tcc_app/models/sensor.dart';
-import 'package:tcc_app/view/components/line_chart.dart';
+
+import '../../components/line_chart.dart';
 
 class SensorDetailsPage extends StatefulWidget {
   const SensorDetailsPage({
@@ -18,9 +19,6 @@ class SensorDetailsPage extends StatefulWidget {
 class _SensorDetailsPageState extends State<SensorDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    print('tempMin: ${widget.sensor.temperature}');
-    print('tempMax: ${widget.sensor.tempMax}');
-
     return Scaffold(
       body: DecoratedBox(
         decoration: const BoxDecoration(
@@ -104,8 +102,13 @@ class _SensorDetailsPageState extends State<SensorDetailsPage> {
                 ],
               ),
             ),
-            const Gap(30),
-            const LineChartComponent(),
+            const SizedBox(
+              width: 385,
+              child: Padding(
+                padding: EdgeInsets.only(top: 70),
+                child: LineChartComponent(),
+              ),
+            ),
             const Gap(30),
             const Text(
               'Temperatura atual:',
