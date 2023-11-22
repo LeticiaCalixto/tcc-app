@@ -21,7 +21,7 @@
 //       Map<dynamic, dynamic>? aux = dataSnapshot.value as Map<dynamic, dynamic>?;
 
 //       temp = Future.value(TempSensorEntity.fromJson(aux!));
-      
+
 //     });
 //   } catch (e) {
 //     print('e: $e');
@@ -33,24 +33,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/sensor.dart';
 
-Future<List<SensorEntity>> fetchSensors({
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tcc_app/models/sensor.dart';
+
+Stream<List<SensorEntity>> fetchSensors({
   required String emailResponsible,
-}) async {
-  List<SensorEntity> temp = [];
+}) {
+  return FirebaseFirestore.instance.collection('sensors').snapshots().map(
+      (snapshot) => _convertSnapshotToSensorList(snapshot, emailResponsible));
+}
 
-  QuerySnapshot<Map<String, dynamic>> querySnapshot =
-      await FirebaseFirestore.instance.collection('sensors').get();
+List<SensorEntity> _convertSnapshotToSensorList(
+  QuerySnapshot<Map<String, dynamic>> snapshot,
+  String emailResponsible,
+) {
+  List<SensorEntity> sensors = [];
 
-  for (var sensor in querySnapshot.docs) {
+  for (var sensor in snapshot.docs) {
     Map<String, dynamic> sensorData = sensor.data();
 
-    // if (sensorData['responsible'] == emailResponsible) {
-    //   temp.add(SensorEntity.fromMap(sensorData));
-    // }
-
-    temp.add(SensorEntity.fromMap(sensorData));
-
+    // Check the condition for adding sensors based on emailResponsible
+    if (sensorData['responsible'] == emailResponsible) {
+      sensors.add(SensorEntity.fromMap(sensorData));
+    }
   }
 
-  return temp;
+  return sensors;
 }
