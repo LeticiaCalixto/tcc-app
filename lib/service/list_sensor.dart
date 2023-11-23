@@ -30,11 +30,9 @@
 //   return temp;
 // }
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../models/sensor.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tcc_app/models/sensor.dart';
+import '../models/sensor.dart';
 
 Stream<List<SensorEntity>> fetchSensors({
   required String emailResponsible,
@@ -52,10 +50,10 @@ List<SensorEntity> _convertSnapshotToSensorList(
   for (var sensor in snapshot.docs) {
     Map<String, dynamic> sensorData = sensor.data();
 
-    // Check the condition for adding sensors based on emailResponsible
-    if (sensorData['responsible'] == emailResponsible) {
-      sensors.add(SensorEntity.fromMap(sensorData));
-    }
+    // if (sensorData['responsible'] == emailResponsible) {
+    //   sensors.add(SensorEntity.fromMap(sensorData));
+    // }
+    sensors.add(SensorEntity.fromMap(sensorData));
   }
 
   return sensors;
